@@ -1,59 +1,47 @@
-import { posts } from "@/lib/content";
+import Link from "next/link";
 
-const boxStyle: Record<"engineering" | "tottal-chaaos", string> = {
-  engineering: "from-blue-50 to-cyan-50 border-blue-200",
-  "tottal-chaaos": "from-rose-50 to-orange-50 border-rose-200",
-};
+const chaosTopics = ["Poetry", "Music", "Travel", "Sanatana Dharma"];
 
 export default function BlogPage() {
-  const engineering = posts.filter((post) => post.category === "engineering");
-  const chaos = posts.filter((post) => post.category === "tottal-chaaos");
-
   return (
-    <main className="mx-auto max-w-6xl px-6 py-10">
-      <h1 className="text-3xl font-semibold">Blog</h1>
-      <p className="mt-2 text-black/70">
-        Two rooms, one universe: engineering tutorials and Tottal Chaaos writing.
-      </p>
-
-      <div className="mt-8 grid gap-6 md:grid-cols-2">
-        <section className={`rounded-2xl border bg-gradient-to-br p-6 ${boxStyle.engineering}`}>
-          <h2 className="text-xl font-semibold">Engineering</h2>
-          <p className="mt-1 text-sm text-black/70">Technical tutorials, build logs, and product notes.</p>
-          <div className="mt-5 space-y-4">
-            {engineering.map((post) => (
-              <article key={post.slug} className="rounded-xl border border-black/10 bg-white p-4">
-                <p className="text-xs uppercase tracking-wide text-black/50">{post.date}</p>
-                <h3 className="mt-1 font-semibold">{post.title}</h3>
-                <p className="mt-2 text-sm text-black/70">{post.summary}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className={`rounded-2xl border bg-gradient-to-br p-6 ${boxStyle["tottal-chaaos"]}`}>
-          <h2 className="text-xl font-semibold">Tottal Chaaos</h2>
-          <p className="mt-1 text-sm text-black/70">
-            Poetry, Carnatic music, travel, language, and culture.
+    <main className="grid min-h-[calc(100vh-80px)] md:grid-cols-2">
+      <section className="flex flex-col justify-between border-r border-black/10 bg-[#f4f4f4] p-8 md:p-12">
+        <div>
+          <p className="text-sm uppercase tracking-[0.2em] text-black/60">Engineering</p>
+          <h1 className="mt-3 text-4xl font-semibold">MechE Notebook</h1>
+          <p className="mt-4 max-w-xl text-lg text-black/70">
+            A tutorial-style page for mechanical engineering concepts, design notes, and worked examples.
           </p>
-          <div className="mt-5 space-y-4">
-            {chaos.map((post) => (
-              <article key={post.slug} className="rounded-xl border border-black/10 bg-white p-4">
-                <p className="text-xs uppercase tracking-wide text-black/50">{post.date}</p>
-                <h3 className="mt-1 font-semibold">{post.title}</h3>
-                <p className="mt-2 text-sm text-black/70">{post.summary}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-      </div>
+        </div>
 
-      <section className="mt-8 rounded-2xl border border-dashed border-black/30 bg-black/[0.02] p-5 text-sm">
-        <p className="font-medium">Easy post workflow</p>
-        <p className="mt-1 text-black/70">
-          To add a new post quickly, duplicate one object in <code>lib/content.ts</code> and set its category to
-          <code> engineering</code> or <code>tottal-chaaos</code>.
-        </p>
+        <div className="mt-12 rounded-3xl border border-black/10 bg-white p-6">
+          <p className="text-sm font-medium text-black/60">Planned link</p>
+          <Link href="/knowledge" className="mt-2 inline-block text-2xl font-semibold underline underline-offset-4">
+            Open Engineering World →
+          </Link>
+        </div>
+      </section>
+
+      <section className="flex flex-col justify-between bg-white p-8 md:p-12">
+        <div>
+          <p className="text-sm uppercase tracking-[0.2em] text-black/60">Tottal Chaaos</p>
+          <h2 className="mt-3 text-4xl font-semibold">Creative Universe</h2>
+          <p className="mt-4 max-w-xl text-lg text-black/70">
+            Split into poetry, music, travel, and Sanatana Dharma with room for visuals and storytelling.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-3 sm:grid-cols-2">
+          {chaosTopics.map((topic) => (
+            <Link
+              key={topic}
+              href="/creative"
+              className="rounded-2xl border border-black/10 bg-amber-50 p-4 text-lg font-medium transition hover:-translate-y-0.5 hover:shadow-sm"
+            >
+              {topic}
+            </Link>
+          ))}
+        </div>
       </section>
     </main>
   );
